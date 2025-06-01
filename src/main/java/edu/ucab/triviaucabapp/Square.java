@@ -3,13 +3,21 @@ package edu.ucab.triviaucabapp;
 import java.util.Scanner;
 
 public class Square {
-    private Question questions;
-    private String categoria;
+    protected QuestionManager questionManager;
+    protected String categoria;
     private Square next;
 
-    @Override
+    public Square() {
+        // Constructor por defecto
+    }
+
+    public Square(QuestionManager questionManager, String categoria) {
+        this.questionManager = questionManager;
+        this.categoria = categoria;
+    }
+
     public Square reaction(Scanner scanner, Ficha jugador) {
-        Question question = questions.getRandomQuestion(categoria);
+        Question question = questionManager.getRandomQuestion(categoria);
 
         if (question == null) {
             System.out.println("No hay preguntas disponibles para esta categoría.");
@@ -38,31 +46,34 @@ public class Square {
         System.out.print("\nTu respuesta: ");
         String respuesta = scanner.nextLine().trim();
 
-        // Normalizar las respuestas (eliminar espacios extras, convertir a minúsculas)
         String respuestaNormalizada = respuesta.toLowerCase().replaceAll("\\s+", " ");
         String respuestaCorrectaNormalizada = question.getAnswer().toLowerCase().replaceAll("\\s+", " ");
 
-        // Verificar respuesta exacta
         if (respuestaNormalizada.equals(respuestaCorrectaNormalizada)) {
             return true;
         }
 
-        // Verificar si la respuesta contiene la respuesta correcta o viceversa
-        if (respuestaNormalizada.contains(respuestaCorrectaNormalizada) || 
-            respuestaCorrectaNormalizada.contains(respuestaNormalizada)) {
-            
-            // Si las respuestas son muy cortas (menos de 3 caracteres), exigir coincidencia exacta
-            if (respuestaNormalizada.length() < 3 || respuestaCorrectaNormalizada.length() < 3) {
-                return respuestaNormalizada.equals(respuestaCorrectaNormalizada);
-            }
-            return true;
+        if (respuestaNormalizada.length() < 3 || respuestaCorrectaNormalizada.length() < 3) {
+            return respuestaNormalizada.equals(respuestaCorrectaNormalizada);
         }
 
-        return false;
+        return respuestaNormalizada.contains(respuestaCorrectaNormalizada) || 
+               respuestaCorrectaNormalizada.contains(respuestaNormalizada);
     }
 
-    // Getters y setters aquí...
     public Square getNext() {
         return next;
+    }
+
+    public void setNext(Square next) {
+        this.next = next;
+    }
+
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
     }
 }
