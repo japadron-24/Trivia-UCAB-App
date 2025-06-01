@@ -3,11 +3,11 @@ package edu.ucab.triviaucabapp;
 import java.util.Scanner;
 
 public class SquareCategory extends Square {
-    private Timer timer;
+    private Temporizador temporizador;
 
     public SquareCategory(QuestionManager questionManager, String categoria) {
         super(questionManager, categoria);
-        this.timer = new Timer(30); // 30 segundos por defecto para responder
+        this.temporizador = new Temporizador(30); // 30 segundos por defecto para responder
     }
 
     @Override
@@ -23,9 +23,9 @@ public class SquareCategory extends Square {
         System.out.println(question.getQuestion());
         System.out.println("===============================\n");
 
-        timer.start();
+        temporizador.iniciar();
         boolean respuestaCorrecta = revisarRespuesta(scanner, question);
-        timer.stop();
+        temporizador.detener();
 
         if (respuestaCorrecta) {
             System.out.println("\n🎉 ¡Respuesta correcta!");
