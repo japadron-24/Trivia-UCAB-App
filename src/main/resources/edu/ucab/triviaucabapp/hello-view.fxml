@@ -3,8 +3,8 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.VBox?>
-
 <?import javafx.scene.control.Button?>
+
 <VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
       fx:controller="edu.ucab.triviaucabapp.HelloController">
     <padding>
@@ -12,6 +12,8 @@
     </padding>
 
     <Label fx:id="welcomeText"/>
+    <Label fx:id="timerLabel" style="-fx-font-size: 24px;"/>
+    <Button text="Start Timer" onAction="#onStartTimerClick"/>
     <Button text="Hello!" onAction="#onHelloButtonClick"/>
-    <Label text= "Holaaaaaaaaa " />
+    <Label text="Holaaaaaaaaa"/>
 </VBox>
